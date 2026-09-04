@@ -1,0 +1,27 @@
+import { Router } from 'express';
+import { healthCheck } from '../controllers/health.controller';
+import { moveRequestRouter } from './move-request.routes';
+import { adminMoveRequestRouter } from './admin-move-request.routes';
+import { documentRouter } from './document.routes';
+import { workflowConfigRouter } from './workflow-config.routes';
+import { requestCollaborationRouter } from './request-collaboration.routes';
+import { requestHistoryRouter } from './request-history.routes';
+import { notificationRouter } from './notification.routes';
+import { agentRouter } from './agent.routes';
+import { dashboardRouter } from './dashboard.routes';
+import { identities } from '../controllers/demo.controller';
+import { demoLogin, demoLoginError } from '../controllers/demo-login.controller';
+
+export const apiRouter = Router();
+apiRouter.get('/health', healthCheck);
+apiRouter.get('/demo/identities', identities);
+apiRouter.post('/demo/login', demoLogin, demoLoginError);
+apiRouter.use(moveRequestRouter);
+apiRouter.use(adminMoveRequestRouter);
+apiRouter.use(documentRouter);
+apiRouter.use(workflowConfigRouter);
+apiRouter.use(requestCollaborationRouter);
+apiRouter.use(requestHistoryRouter);
+apiRouter.use(notificationRouter);
+apiRouter.use(agentRouter);
+apiRouter.use(dashboardRouter);
